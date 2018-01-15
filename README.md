@@ -2,14 +2,17 @@
 Elasticsearch plugin which only provides a TokenFilter that merges tokens in a token stream back into one. Taken from http://elasticsearch-users.115913.n3.nabble.com/Is-there-a-concatenation-filter-td3711094.html
 
 ## ElasticSearch version support
-This plugin targets 1.X versions of ES, and won't work for 2.X.
+This plugin is compatible with ES 5.4.2. 
 
-Support for ElasticSearch 2.2.0 was added thanks to [@bomberby](https://github.com/bomberby) and can be found in the [2.2.0](https://github.com/francesconero/elasticsearch-concatenate-token-filter/tree/2.2.0) branch. It may be compatible for all 2.X versions, but was only tested on 2.2.0.
+## Build
+To build .zip or .jar for this plugin, run following command and you should see generated files in `/target`
+
+    mvn clean install
 
 ## Install
 To install on your current ES node, use the plugin binary provided in the bin folder (on Ubuntu it should be under `/usr/share/elasticsearch/bin`)
 
-    bin/plugin -u https://github.com/francesconero/elasticsearch-concatenate-token-filter/releases/download/v1.1.0/elasticsearch-concatenate-1.1.0.zip -i concatenate
+    bin/elasticsearch-plugin  install file:<path to generated zip>/elasticsearch-concatenate-5.4.2.zip
     
 ## Usage
 The plugin provides a token filter of type `concatenate` which has one parameter `token_separator`. Use it in your custom analyzers to merge tokenized strings back into one single token (usually after applying stemming or other token filters).
