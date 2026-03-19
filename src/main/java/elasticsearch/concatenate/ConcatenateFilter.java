@@ -38,7 +38,7 @@ public final class ConcatenateFilter extends TokenFilter {
         }
 
         while (input.incrementToken()) {
-            // FIXED: If the builder is empty, we must accept the token to start the concatenation,
+            // If the builder is empty, we must accept the token to start the concatenation,
             // regardless of how large its position increment is.
             if (posIncrAtt.getPositionIncrement() <= incrementGap || builder.length() == 0) {
                 if (builder.length() > 0) {
