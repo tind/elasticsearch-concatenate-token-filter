@@ -38,7 +38,9 @@ public final class ConcatenateFilter extends TokenFilter {
         }
 
         while (input.incrementToken()) {
-            if (posIncrAtt.getPositionIncrement() <= incrementGap) {
+            // FIXED: If the builder is empty, we must accept the token to start the concatenation,
+            // regardless of how large its position increment is.
+            if (posIncrAtt.getPositionIncrement() <= incrementGap || builder.length() == 0) {
                 if (builder.length() > 0) {
                     builder.append(tokenSeparator);
                 }
@@ -51,7 +53,6 @@ public final class ConcatenateFilter extends TokenFilter {
         }
 
         // If we gathered any characters, we successfully formed a token.
-        // We must return true to yield it to Lucene.
         if (builder.length() > 0) {
             termAtt.setEmpty().append(builder);
             return true; 
